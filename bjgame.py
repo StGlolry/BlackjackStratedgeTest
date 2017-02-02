@@ -304,12 +304,19 @@ class Game:
         self.view.PlayerMoney()
         stillplay = True
         round=100000;
+        equalcount=0;
         while stillplay: #For every game
             # bet = self.view.AskBet()
             if(len(self.deck.cards)<20):
                 self.deck = Deck()
                 self.deck.Shuffle(10)
             self.deck.Shuffle(1)
+
+            # print 'totally %d cards in Deck.'%len(self.deck.cards)
+            # for iCards in range(len(self.deck.cards)):
+            #     print self.deck.cards[iCards].rank,
+            # return
+
             self.player.Bet() #The player bets
             self.player.hand.Reset() #The player's hand is empty
             self.dealer.hand.Reset() #the dealer's hand is empty
@@ -414,6 +421,7 @@ class Game:
                         
                         # self.player.Lose()
                         # self.view.Lose('The dealer is equeal to you')
+                        equalcount+=1;
                         print 'Dealer Equal Player\n'
                         
                     elif dealerEnd<playerEnd:
@@ -434,6 +442,7 @@ class Game:
             round-=1;
             if(round==0):
                 stillplay=False;
+                print 'equalcount is %d'%equalcount
             playagain = self.view.PlayAgain()
             
             if playagain: #If the player don't want play again
